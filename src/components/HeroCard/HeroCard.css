@@ -1,0 +1,50 @@
+.hero-card_container{
+    display: flex;
+    flex-direction: column;
+}
+.hero-card_health{
+    height: 20vh;
+    line-height: 20vh;
+
+    width: 100%;
+    background-color: #6AA84F;
+    color: white;
+    font-size: 7rem;
+    text-align: center;
+}
+.hero-card_sub-stats{
+    display: flex;
+}
+
+.hero-card_attack{
+    height: 8vh;
+    line-height: 8vh;
+
+    width: 33%;
+    background-color: #CC0000;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+}
+.hero-card_mana{
+    height: 8vh;
+    line-height: 8vh;
+
+    width: 33%;
+    background-color: #6D9EEB;
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+
+}
+.hero-card_armor{
+    height: 8vh;
+    line-height: 8vh;
+    width: 33%;
+    background-color: #F1C232;
+    font-size: 2rem;
+
+    color: white;
+    text-align: center;
+
+}
