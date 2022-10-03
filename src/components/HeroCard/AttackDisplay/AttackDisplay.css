@@ -1,0 +1,10 @@
+.hero-card_attack{
+    height: 8vh;
+    line-height: 8vh;
+    flex-grow: 1;
+    width: 33%;
+    background-color: #CC0000;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+}

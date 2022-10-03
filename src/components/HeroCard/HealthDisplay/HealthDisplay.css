@@ -1,0 +1,10 @@
+.hero-card_health{
+    height: 20vh;
+    line-height: 20vh;
+
+    width: 100%;
+    background-color: #6AA84F;
+    color: white;
+    font-size: 7rem;
+    text-align: center;
+}

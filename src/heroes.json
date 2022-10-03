@@ -1,0 +1,14 @@
+{
+    "heroes":[{
+        "name": "arcanus",
+        "health": 32,
+        "attack": 1,
+        "mana": 6
+    },{
+        "name": "arcanus",
+        "health": 32,
+        "attack": 1,
+        "mana": 6
+    }
+]
+}

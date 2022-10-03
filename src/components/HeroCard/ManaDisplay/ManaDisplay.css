@@ -1,0 +1,10 @@
+.hero-card_mana{
+    height: 8vh;
+    line-height: 8vh;
+    flex-grow: 1;
+    width: 33vw;
+    background-color: #6D9EEB;
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+}
