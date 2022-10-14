@@ -1,0 +1,19 @@
+.hero-portrait{
+    width: 33%;
+    height: 25%;
+    border: 1px black solid;
+}
+.hero-portrait-container{
+    display: flex;
+    height: 90%;
+    flex-wrap: wrap;
+    align-content: flex-start
+}
+.modal{
+    left: 0;
+    position: absolute;
+    background-color: #806290;
+    height: 100vh;
+    width: 100vw;
+    overflow: auto;
+}

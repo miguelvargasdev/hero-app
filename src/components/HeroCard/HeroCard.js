@@ -1,31 +1,39 @@
 import React from 'react';
-import ArmorDisplay from './ArmorDisplay/ArmorDisplay';
-import AttackDisplay from './AttackDisplay/AttackDisplay';
-import HealthDisplay from './HealthDisplay/HealthDisplay'
-import './HeroCard.css'
-import ManaDisplay from './ManaDisplay/ManaDisplay';
+import {
+  HealthDisplay,
+  AttackDisplay,
+  ManaDisplay,
+  ArmorDisplay,
+} from './StatDisplay/StatDisplay';
+import { PlayerContext } from '../../App';
+import './HeroCard.css';
 
+export default function HeroCard({ hero }) {
+  console.log(`${hero.name} rendered.`);
+  const [heroStats, setHeroStats] = React.useState(hero);
 
-
-export default function HeroCard(){
-    const [stats, setStats] = React.useState({
-        name: 'Arcanas',
-        health: 40,
-        attack: 3,
-        mana: 12,
-        armor: 2
-    })
-    function handleClick(key, value){
-        setStats({...stats, [key]: Number(value) - 1});
+  function modifyStat(stats, modifier, statType) {
+    if (stats[statType] <= 0 && modifier < 0) {
+      return null;
     }
-    return(
-        <div className='hero-card_container'>
-            <HealthDisplay value={stats.health} onClick={()=>handleClick('health', stats.health)}/>
-            <div className='hero-card_sub-stats'>
-                <AttackDisplay value={stats.attack} onClick={()=>handleClick('attack', stats.attack)}/>
-                <ManaDisplay value={stats.mana} onClick={()=>handleClick('mana', stats.mana)}/>
-                <ArmorDisplay value={stats.armor} onClick={()=>handleClick('armor', stats.armor)}/>
-            </div>
-        </div>
-    );
+    console.log(hero.playerNumber);
+
+    setHeroStats((currentList) => {
+      return {
+        ...currentList,
+        [statType]: currentList[statType] + modifier,
+      };
+    });
+  }
+
+  return (
+    <div className='hero-card_container'>
+      <HealthDisplay modifyStat={modifyStat} hero={heroStats} />
+      <div className='hero-card_sub-stats'>
+        <AttackDisplay modifyStat={modifyStat} hero={heroStats} />
+        <ManaDisplay modifyStat={modifyStat} hero={heroStats} />
+        <ArmorDisplay modifyStat={modifyStat} hero={heroStats} />
+      </div>
+    </div>
+  );
 }

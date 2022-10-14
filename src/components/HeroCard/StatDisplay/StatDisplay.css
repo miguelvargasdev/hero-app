@@ -1,0 +1,49 @@
+.hero-card_health{
+    position: relative;
+    display:flex;
+    height: 20vh;
+    line-height: 20vh;
+
+    width: 100%;
+    background-color: #6AA84F;
+    color: white;
+    font-size: 7rem;
+    text-align: center;
+}
+.hero-card_substat{
+    position: relative;
+    display:flex;
+    height: 8vh;
+    line-height: 8vh;
+    flex-grow: 1;
+    width: 33%;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+}
+.hero-card_attack{
+    background-color: #8b0202;
+}
+.hero-card_mana{
+    background-color: #6D9EEB;
+}
+.hero-card_armor{
+    background-color: #F1C232;
+}
+span{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    pointer-events: none;
+}
+
+.minus-div{
+    width:50%;
+    height: 100%;
+}
+.plus-div{
+    width:50%;
+    height: 100%;
+}

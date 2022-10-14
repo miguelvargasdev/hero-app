@@ -1,0 +1,68 @@
+const heroes = [
+  {
+    name: 'Scathtassia',
+    health: 34,
+    attack: 1,
+    mana: 5,
+    armor: 0,
+    color: '#c61a09',
+  },
+  {
+    name: 'Arcanas Invos',
+    health: 32,
+    attack: 1,
+    mana: 6,
+    armor: 0,
+    color: '#1cb2f5',
+  },
+  {
+    name: 'Nascha',
+    health: 36,
+    attack: 1,
+    mana: 3,
+    armor: 0,
+    color: '#ff781f',
+  },
+  {
+    name: 'Darren Vane',
+    health: 32,
+    attack: 2,
+    mana: 3,
+    armor: 1,
+    color: '#ffe800',
+  },
+  {
+    name: 'Heathenmoore',
+    health: 40,
+    attack: 2,
+    mana: 4,
+    armor: 0,
+    color: '#4FA64F',
+  },
+  {
+    name: 'Briar of Grindlehallow',
+    health: 32,
+    attack: 1,
+    mana: 4,
+    armor: 0,
+    color: '#B68E65',
+  },
+  {
+    name: 'Gwendolyn Vale',
+    health: 32,
+    attack: 1,
+    mana: 5,
+    armor: 0,
+    color: '#7c5295',
+  },
+  {
+    name: "Ju'golach",
+    health: 30,
+    attack: 0,
+    mana: 3,
+    armor: 1,
+    color: '#e43605',
+  },
+];
+
+export default heroes;
