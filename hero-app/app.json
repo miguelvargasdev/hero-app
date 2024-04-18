@@ -24,15 +24,25 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "output": "server",
+      "bundler": "metro"
     },
     "plugins": [
       [
-      "expo-font",
-      {
-        "fonts": ["./assets/fonts/Cinzel-Black.ttf", "./assets/fonts/Cinzel-Bold.ttf", "./assets/fonts/Cinzel-Regular.ttf","./assets/fonts/Cinzel-ExtraBold.ttf"]
-      }
-    ]
-  ]
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Cinzel-Black.ttf",
+            "./assets/fonts/Cinzel-Bold.ttf",
+            "./assets/fonts/Cinzel-Regular.ttf",
+            "./assets/fonts/Cinzel-ExtraBold.ttf"
+          ]
+        }
+      ]
+    ],
+    "experiments": {
+      "baseUrl": "/hero-app"
+    }
   }
 }
