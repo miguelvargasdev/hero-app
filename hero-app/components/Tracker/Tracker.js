@@ -1,5 +1,5 @@
 import { Pressable, View, StyleSheet, Text, ImageBackground, Image } from "react-native";
-import Animated, { useAnimatedStyle, useAnimatedProps, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useAnimatedProps, useSharedValue, withSpring, withTiming, withSequence } from 'react-native-reanimated';
 import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -13,14 +13,28 @@ const selectedColor = 'rgba(42,77,255,1)'; // arcanas blue
 const selectedIcon = healthIcon;
 const background = backgroundImage;
 
+
 export default function Tracker() {
+    const incOpacity = useSharedValue(0);
+    const decOpacity = useSharedValue(0);
 
     const [value, setValue] = useState(startingValue);
     const color = selectedColor;
     const icon = selectedIcon;
     const background = backgroundImage;
-    
 
+    const incAnimatedStyles = useAnimatedStyle(() => ({
+        opacity: incOpacity.value,
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+    }));
+    const decAnimatedStyles = useAnimatedStyle(() => ({
+        opacity: decOpacity.value,
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+    }));
     function increment() {
         setValue(value + 1);
     }
@@ -30,9 +44,12 @@ export default function Tracker() {
 
     function handleIncrement() {
         increment();
+        incOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 750 }));
     }
     function handleDecrement() {
         decrement();
+        decOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 500 }));
+
     }
 
     return (
@@ -45,12 +62,23 @@ export default function Tracker() {
 
                 <Pressable style={styles.incDecButton} onPress={handleIncrement}>
                     {/* TODO: Implement options functionality */}
+                    <Animated.View style={incAnimatedStyles}>
+                        <LinearGradient
+                            colors={['rgba(0,255,0,1)','transparent']}
+                            style={[styles.colorGradient]}
+                        />
+                    </Animated.View>
                     <Pressable style={styles.gearContainer} onPress={() => alert('GEAR!!')}>
                         <Image source={gearIcon} style={styles.gearIcon} />
-
                     </Pressable>
                 </Pressable>
                 <Pressable style={styles.incDecButton} onPress={handleDecrement}>
+                    <Animated.View style={decAnimatedStyles}>
+                        <LinearGradient
+                            colors={['transparent','rgba(255,0,0,1)']}
+                            style={[styles.colorGradient]}
+                        />
+                    </Animated.View>
                     <View style={styles.iconContainer}>
                         <Image source={icon} style={styles.icon} />
                         <Text style={styles.iconValue}>{value.toString()}</Text>
@@ -89,6 +117,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '15vh',
         height: '15vh',
+        marginTop: 'auto',
+        marginBottom: '10vh',
+
     },
     icon: {
         resizeMode: 'cover',
@@ -112,8 +143,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexGrow: 1,
         flexBasis: 0,
-        borderColor: 'white',
-        borderWidth: 1,
     },
     gearContainer: {
         position: 'relative',
@@ -121,6 +150,8 @@ const styles = StyleSheet.create({
         marginBottom: 'auto',
         width: '3vh',
         height: '3vh',
+        padding: '0.5vh',
+
     },
     gearIcon: {
         width: '100%',
