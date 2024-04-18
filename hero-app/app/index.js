@@ -3,7 +3,7 @@ import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native
 import TrackerContainer from '../components/TrackerContainer/TrackerContainer.js';
 import AddTrackerButton from '../components/AddTrackerButton.js';
 import Tracker from '../components/Tracker/Tracker.js';
-import {useFonts} from 'expo-font';
+import { useFonts } from 'expo-font';
 
 const backgroundImage = require('../assets/images/background-image.png');
 
@@ -21,7 +21,7 @@ export default function HomePage() {
           <TrackerContainer>
             <Tracker />
           </TrackerContainer>
-          <AddTrackerButton onPress={handleAddTracker}/>
+          <AddTrackerButton onPress={handleAddTracker} />
         </View>
       </ImageBackground>
       <StatusBar style="auto" />
@@ -30,7 +30,7 @@ export default function HomePage() {
 }
 
 function handleAddTracker() {
-  console.log('Add tracker button pressed');
+  alert('Add tracker button pressed');
 }
 
 const styles = StyleSheet.create({

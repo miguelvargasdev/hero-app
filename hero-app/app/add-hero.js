@@ -7,7 +7,7 @@ import {useFonts} from 'expo-font';
 
 const backgroundImage = require('../assets/images/background-image.png');
 
-export default function HomePage() {
+export default function AddHeroPage() {
   const [fontsLoaded] = useFonts({
     'Cinzel': require('../assets/fonts/Cinzel-Regular.ttf'),
     'Cinzel-Bold': require('../assets/fonts/Cinzel-Bold.ttf'),
@@ -18,10 +18,8 @@ export default function HomePage() {
     <View style={styles.container}>
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
         <View style={styles.mainContainer}>
-          <TrackerContainer>
-            <Tracker />
-          </TrackerContainer>
-          <AddTrackerButton onPress={handleAddTracker}/>
+          <Pressable style={styles.button}  />
+          <Pressable style={styles.button}  />
         </View>
       </ImageBackground>
       <StatusBar style="auto" />
@@ -48,12 +46,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white',
   },
-  mainContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    padding: 12,
-    gap: 12,
-    height: '100%',
-    width: '100%',
-  },
+
 });
