@@ -1,9 +1,9 @@
 import { Pressable, View, StyleSheet, Text } from "react-native";
 
-export default function AddTrackerButton() {
+export default function AddTrackerButton({ onPress }) {
   return (
     <View style={styles.buttonContainer}>
-        <Pressable style={styles.button} onPress={() => alert('You pressed a button.')}>
+        <Pressable style={styles.button} onPress={onPress}>
             <Text style={styles.buttonLabel}>+</Text>
         </Pressable>
     </View>

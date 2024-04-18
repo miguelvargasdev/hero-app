@@ -21,12 +21,16 @@ export default function App() {
           <TrackerContainer>
             <Tracker />
           </TrackerContainer>
-          <AddTrackerButton />
+          <AddTrackerButton onPress={handleAddTracker}/>
         </View>
       </ImageBackground>
       <StatusBar style="auto" />
     </View>
   );
+}
+
+function handleAddTracker() {
+  console.log('Add tracker button pressed');
 }
 
 const styles = StyleSheet.create({

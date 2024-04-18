@@ -1,4 +1,4 @@
-import { Pressable, View, StyleSheet, Text, ImageBackground, Image } from "react-native";
+import { Pressable, View, StyleSheet, Text, ImageBackground, Image, Easing } from "react-native";
 import Animated, { useAnimatedStyle, useAnimatedProps, useSharedValue, withSpring, withTiming, withSequence } from 'react-native-reanimated';
 import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -44,11 +44,11 @@ export default function Tracker() {
 
     function handleIncrement() {
         increment();
-        incOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 750 }));
+        incOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 1000, easing: Easing.inOut(Easing.quad)}));
     }
     function handleDecrement() {
         decrement();
-        decOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 500 }));
+        decOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 1000, easing: Easing.inOut(Easing.quad)}));
 
     }
 
