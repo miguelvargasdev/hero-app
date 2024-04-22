@@ -1,9 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { ImageBackground, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
 import TrackerContainer from '../components/TrackerContainer/TrackerContainer.js';
 import AddTrackerButton from '../components/AddTrackerButton.js';
 import Tracker from '../components/Tracker/Tracker.js';
 import { useFonts } from 'expo-font';
+import { v4 as uuidv4 } from 'uuid';
+import HeroPicker from '../components/HeroPicker/HeroPicker.js';
 
 const backgroundImage = require('../assets/images/background-image.png');
 
@@ -14,14 +17,30 @@ export default function HomePage() {
     'Cinzel-Black': require('../assets/fonts/Cinzel-Black.ttf'),
   });
 
+  const [trackers, setTrackers] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  function handleModalVisibilty(){
+    setModalVisible(!modalVisible);
+  }
+  function handleAddTracker() {
+    setTrackers([...trackers, <Tracker key={uuidv4()} hero={heroList.heathanmoore} />]);
+  }
+
+  function addHeroTracker(hero){
+    setTrackers([...trackers, <Tracker key={uuidv4()} hero={hero} />]);
+    setModalVisible(false);
+  }
+
   return (
     <View style={styles.container}>
-      <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
+      <ImageBackground source={backgroundImage} style={styles.backgroundImage} resizeMode='cover'>
         <View style={styles.mainContainer}>
           <TrackerContainer>
-            <Tracker />
+            {trackers}
           </TrackerContainer>
-          <AddTrackerButton onPress={handleAddTracker} />
+          <HeroPicker modalVisible={modalVisible} setModalVisible={handleModalVisibilty} handleAddTracker= {addHeroTracker}/>
+          <AddTrackerButton onPress={handleModalVisibilty} />
         </View>
       </ImageBackground>
       <StatusBar style="auto" />
@@ -29,9 +48,7 @@ export default function HomePage() {
   );
 }
 
-function handleAddTracker() {
-  alert('Add tracker button pressed');
-}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -51,7 +68,6 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     flexDirection: 'row',
-    padding: 12,
     gap: 12,
     height: '100%',
     width: '100%',
