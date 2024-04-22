@@ -1,0 +1,78 @@
+import colors from './colors';
+
+const heroList = {
+    arcanas: {
+        name: "Arcanas Invos",
+        health: 32,
+        color: colors.arcanasColor,
+        image: require('../assets/images/arcanas.png'),
+        icon: require('../assets/images/icon/health.png'),
+        unselected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/arcanas_unselected.png'),
+        selected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/arcanas_selected.png'),
+    },
+    darren: {
+        name: "Darren",
+        health: 32,
+        color: colors.darrenColor,
+        image: require('../assets/images/darren.png'),
+        icon: require('../assets/images/icon/health.png'),
+        unselected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/darren_unselected.png'),
+        selected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/darren_selected.png'),
+    },
+    heathanmoore: {
+        name: "Heathanmoore",
+        health: 40,
+        color: colors.heathanmooreColor,
+        image: require('../assets/images/heathanmoore.png'),
+        icon: require('../assets/images/icon/health.png'),
+        unselected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/heathanmoore_unselected.png'),
+        selected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/heathanmoore_selected.png'),
+    },
+    nascha: {
+        name: "Nascha",
+        health: 32,
+        color: colors.naschaColor,
+        image: require('../assets/images/nascha.png'),
+        icon: require('../assets/images/icon/health.png'),
+        unselected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/nascha_unselected.png'),
+        selected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/nascha_selected.png'),
+    },
+    scathtassia: {
+        name: "Scathtassia",
+        health: 32,
+        color: colors.scathtassiaColor,
+        image: require('../assets/images/scathtassia.png'),
+        icon: require('../assets/images/icon/health.png'),
+        unselected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/scathtassia_unselected.png'),
+        selected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/scathtassia_selected.png'),
+    },
+    briar: {
+        name: "Briar",
+        health: 32,
+        color: colors.briarColor,
+        image: require('../assets/images/briar.png'),
+        icon: require('../assets/images/icon/health.png'),
+        unselected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/briar_unselected.png'),
+        selected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/briar_selected.png'),
+    },
+    gwendolyn: {
+        name: "Gwendolyn",
+        health: 32,
+        color: colors.gwendolynColor,
+        image: require('../assets/images/gwendolyn.png'),
+        icon: require('../assets/images/icon/health.png'),
+        unselected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/gwendolyn_unselected.png'),
+        selected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/gwendolyn_selected.png'),
+    },
+    jugolach: {
+        name: "Jug'olach",
+        health: 32,
+        color: colors.jugolachColor,
+        image: require('../assets/images/jugolach.png'),
+        icon: require('../assets/images/icon/health.png'),
+        unselected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/jugolach_unselected.png'),
+        selected: require('/home/moogle/Documents/Projects/hero-app/assets/images/selection-icons/jugolach_selected.png'),
+    },
+}
+
+export default heroList;
