@@ -14,14 +14,11 @@ const selectedIcon = healthIcon;
 const background = backgroundImage;
 
 
-export default function Tracker() {
+export default function Tracker( {hero}) {
     const incOpacity = useSharedValue(0);
     const decOpacity = useSharedValue(0);
 
-    const [value, setValue] = useState(startingValue);
-    const color = selectedColor;
-    const icon = selectedIcon;
-    const background = backgroundImage;
+    const [value, setValue] = useState(hero.health);
 
     const incAnimatedStyles = useAnimatedStyle(() => ({
         opacity: incOpacity.value,
@@ -54,9 +51,9 @@ export default function Tracker() {
 
     return (
         <View style={styles.trackerContainer}>
-            <ImageBackground source={background} style={styles.heroImage}>
+            <ImageBackground source={hero.image} style={styles.heroImage}>
                 <LinearGradient
-                    colors={['transparent', 'transparent', color]}
+                    colors={['transparent', 'transparent', hero.color]}
                     style={[styles.colorGradient]}
                 />
 
@@ -80,7 +77,7 @@ export default function Tracker() {
                         />
                     </Animated.View>
                     <View style={styles.iconContainer}>
-                        <Image source={icon} style={styles.icon} />
+                        <Image source={hero.icon} style={styles.icon} />
                         <Text style={styles.iconValue}>{value.toString()}</Text>
                     </View>
                 </Pressable>

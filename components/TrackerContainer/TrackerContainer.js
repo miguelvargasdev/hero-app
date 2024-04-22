@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
     trackerContainer: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#00000085',
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
