@@ -1,13 +1,13 @@
 import { Pressable, View, StyleSheet, Text } from "react-native";
 
 export default function AddTrackerButton({ onPress }) {
-  return (
-    <View style={styles.buttonContainer}>
-        <Pressable style={styles.button} onPress={onPress}>
-            <Text style={styles.buttonLabel}>+</Text>
-        </Pressable>
-    </View>
-  );
+    return (
+        <View style={styles.buttonContainer}>
+            <Pressable style={styles.button} onPress={onPress}>
+                <Text style={styles.buttonLabel}>+</Text>
+            </Pressable>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -31,5 +31,6 @@ const styles = StyleSheet.create({
     buttonLabel: {
         color: 'white',
         fontSize: 40,
+        userSelect: 'none',
     }
 })

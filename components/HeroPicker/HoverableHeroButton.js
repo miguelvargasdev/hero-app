@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Pressable, View, StyleSheet, Text, ImageBackground } from "react-native";
+import { TrackerListContext } from "../../context/TrackersContext";
 
-export default function HoverableHeroButton({ hero, handleAddTracker }) {
-    var [image, setImage] = useState(hero.unselected);
+export default function HoverableHeroButton({ hero }) {
+    const [trackers, setTrackers, addTracker, removeTracker] = useContext(TrackerListContext);
+    const [image, setImage] = useState(hero.unselected);
 
     function swapImage(newState) {
         setImage(newState);
@@ -10,7 +12,10 @@ export default function HoverableHeroButton({ hero, handleAddTracker }) {
 
     return (
         <ImageBackground source={image} style={styles.heroImage} >
-            <Pressable style={styles.heroButton} onHoverIn={() => swapImage(hero.selected)} onHoverOut={() => swapImage(hero.unselected)} onPress={()=>handleAddTracker(hero)}/>
+            <Pressable style={styles.heroButton}
+                onHoverIn={() => swapImage(hero.selected)}
+                onHoverOut={() => swapImage(hero.unselected)}
+                onPress={() => addTracker(hero)} />
         </ImageBackground>
     );
 }

@@ -9,14 +9,13 @@ export default function TrackerContainer({ children }) {
 }
 
 const styles = StyleSheet.create({
-    trackerContainer: {
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        flex:1,
-        flexGrow: 10,
-        gap: 12,
-    },
+  trackerContainer: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    flex: 1,
+    flexGrow: 10,
+  },
 });

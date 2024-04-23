@@ -7,22 +7,22 @@ import heroes from '../../constants/heroes.js';
 
 export default function HeroPicker({ setModalVisible, modalVisible, handleAddTracker }) {
     return (
-        <Modal style={styles.modal} animationType="slide"  visible={modalVisible}>
+        <Modal style={styles.modal} animationType="slide" visible={modalVisible}>
             <Pressable style={styles.gearContainer} onPress={setModalVisible}>
                 <MaterialIcons name="close" color="#black" size={22} />
             </Pressable>
             <View style={styles.container}>
                 <View style={styles.row}>
-                    <HoverableHeroButton hero={heroes.arcanas} handleAddTracker={handleAddTracker} />
-                    <HoverableHeroButton hero={heroes.darren} handleAddTracker={handleAddTracker} />
-                    <HoverableHeroButton hero={heroes.heathanmoore} handleAddTracker={handleAddTracker} />
-                    <HoverableHeroButton hero={heroes.nascha} handleAddTracker={handleAddTracker} />
+                    <HoverableHeroButton hero={heroes.arcanas} />
+                    <HoverableHeroButton hero={heroes.darren} />
+                    <HoverableHeroButton hero={heroes.heathanmoore} />
+                    <HoverableHeroButton hero={heroes.nascha} />
                 </View>
                 <View style={styles.row}>
-                    <HoverableHeroButton hero={heroes.scathtassia} handleAddTracker={handleAddTracker}  />
-                    <HoverableHeroButton hero={heroes.briar} handleAddTracker={handleAddTracker} />
-                    <HoverableHeroButton hero={heroes.gwendolyn} handleAddTracker={handleAddTracker} />
-                    <HoverableHeroButton hero={heroes.jugolach} handleAddTracker={handleAddTracker} />
+                    <HoverableHeroButton hero={heroes.scathtassia} />
+                    <HoverableHeroButton hero={heroes.briar} />
+                    <HoverableHeroButton hero={heroes.gwendolyn} />
+                    <HoverableHeroButton hero={heroes.jugolach} />
                 </View>
             </View>
         </Modal>

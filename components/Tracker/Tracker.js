@@ -1,7 +1,8 @@
 import { Pressable, View, StyleSheet, Text, ImageBackground, Image, Easing } from "react-native";
 import Animated, { useAnimatedStyle, useAnimatedProps, useSharedValue, withSpring, withTiming, withSequence } from 'react-native-reanimated';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import { TrackerListContext } from '../../context/TrackersContext';
 
 const backgroundImage = require('../../assets/images/arcanas.png');
 const healthIcon = require('../../assets/images/icon/health.png');
@@ -14,7 +15,9 @@ const selectedIcon = healthIcon;
 const background = backgroundImage;
 
 
-export default function Tracker( {hero}) {
+export default function Tracker( {hero, id}) {
+    const [trackers, setTrackers, addTracker, removeTracker] = useContext(TrackerListContext);
+
     const incOpacity = useSharedValue(0);
     const decOpacity = useSharedValue(0);
 
@@ -56,7 +59,6 @@ export default function Tracker( {hero}) {
                     colors={['transparent', 'transparent', hero.color]}
                     style={[styles.colorGradient]}
                 />
-
                 <Pressable style={styles.incDecButton} onPress={handleIncrement}>
                     {/* TODO: Implement options functionality */}
                     <Animated.View style={incAnimatedStyles}>
@@ -65,7 +67,7 @@ export default function Tracker( {hero}) {
                             style={[styles.colorGradient]}
                         />
                     </Animated.View>
-                    <Pressable style={styles.gearContainer} onPress={() => alert('GEAR!!')}>
+                    <Pressable style={styles.gearContainer} onPress={() => removeTracker(id)}>
                         <Image source={gearIcon} style={styles.gearIcon} />
                     </Pressable>
                 </Pressable>
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
         width: '15vh',
         height: '15vh',
         marginTop: 'auto',
-        marginBottom: '10vh',
+        marginBottom: '5vh',
 
     },
     icon: {
@@ -131,6 +133,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
         position: 'absolute',
+        userSelect: 'none',
         zIndex: 1,
     },
     incDecButton: {
@@ -153,5 +156,6 @@ const styles = StyleSheet.create({
     gearIcon: {
         width: '100%',
         height: '100%',
+        opacity: 0.7,
     }
 })
