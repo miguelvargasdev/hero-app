@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Pressable, View, StyleSheet, Text, ImageBackground } from "react-native";
 import { TrackerListContext } from "../../context/TrackersContext";
 
-export default function HoverableHeroButton({ hero }) {
+export default function HoverableHeroButton({ hero, setModalVisible }) {
     const [trackers, setTrackers, addTracker, removeTracker] = useContext(TrackerListContext);
     const [image, setImage] = useState(hero.unselected);
 
@@ -15,7 +15,10 @@ export default function HoverableHeroButton({ hero }) {
             <Pressable style={styles.heroButton}
                 onHoverIn={() => swapImage(hero.selected)}
                 onHoverOut={() => swapImage(hero.unselected)}
-                onPress={() => addTracker(hero)} />
+                onPress={() => {
+                    addTracker(hero);
+                    setModalVisible();
+                }} />
         </ImageBackground>
     );
 }
