@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Pressable, ViewBase, Modal } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { ImageBackground } from 'react-native-web';
 import HoverableHeroButton from './HoverableHeroButton';
 import heroes from '../../constants/heroes.js';
 
-export default function HeroPicker({ setModalVisible, modalVisible, handleAddTracker }) {
+export default function HeroPicker({ setModalVisible, modalVisible }) {
     return (
         <Modal style={styles.modal} animationType="slide" visible={modalVisible}>
             <Pressable style={styles.gearContainer} onPress={setModalVisible}>
@@ -13,16 +12,16 @@ export default function HeroPicker({ setModalVisible, modalVisible, handleAddTra
             </Pressable>
             <View style={styles.container}>
                 <View style={styles.row}>
-                    <HoverableHeroButton hero={heroes.arcanas} />
-                    <HoverableHeroButton hero={heroes.darren} />
-                    <HoverableHeroButton hero={heroes.heathanmoore} />
-                    <HoverableHeroButton hero={heroes.nascha} />
+                    <HoverableHeroButton hero={heroes.arcanas} setModalVisible={setModalVisible}/>
+                    <HoverableHeroButton hero={heroes.darren} setModalVisible={setModalVisible}/>
+                    <HoverableHeroButton hero={heroes.heathanmoore} setModalVisible={setModalVisible}/>
+                    <HoverableHeroButton hero={heroes.nascha} setModalVisible={setModalVisible}/>
                 </View>
                 <View style={styles.row}>
-                    <HoverableHeroButton hero={heroes.scathtassia} />
-                    <HoverableHeroButton hero={heroes.briar} />
-                    <HoverableHeroButton hero={heroes.gwendolyn} />
-                    <HoverableHeroButton hero={heroes.jugolach} />
+                    <HoverableHeroButton hero={heroes.scathtassia} setModalVisible={setModalVisible}/>
+                    <HoverableHeroButton hero={heroes.briar} setModalVisible={setModalVisible}/>
+                    <HoverableHeroButton hero={heroes.gwendolyn} setModalVisible={setModalVisible}/>
+                    <HoverableHeroButton hero={heroes.jugolach} setModalVisible={setModalVisible}/>
                 </View>
             </View>
         </Modal>
