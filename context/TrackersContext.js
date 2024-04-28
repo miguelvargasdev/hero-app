@@ -5,11 +5,12 @@ export const TrackerListContext = createContext();
 
 export const TrackerListProvider = (props) => {
     const [trackers, setTrackers] = useState([]);
-    function addTracker(hero) {
+    function addTracker(hero, custom = false) {
         setTrackers([...trackers, {
           key: uuidv4(),
           id: uuidv4(),
           hero: hero,
+          custom: custom,
         }]);
       }
       function removeTracker(id) {

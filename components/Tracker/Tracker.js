@@ -3,6 +3,7 @@ import Animated, { useAnimatedStyle, useAnimatedProps, useSharedValue, withSprin
 import React, { useState, useContext } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TrackerListContext } from '../../context/TrackersContext';
+import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const backgroundImage = require('../../assets/images/arcanas.png');
 const healthIcon = require('../../assets/images/icon/health.png');
@@ -15,7 +16,7 @@ const selectedIcon = healthIcon;
 const background = backgroundImage;
 
 
-export default function Tracker( {hero, id}) {
+export default function Tracker({ hero, id, custom }) {
     const [trackers, setTrackers, addTracker, removeTracker] = useContext(TrackerListContext);
 
     const incOpacity = useSharedValue(0);
@@ -35,6 +36,31 @@ export default function Tracker( {hero, id}) {
         width: '100%',
         height: '100%',
     }));
+
+    // Gestures
+    const offset = useSharedValue(0);
+    const pressed = useSharedValue(false);
+
+    const pan = Gesture.Pan()
+        .onBegin(() => {
+            pressed.value = true;
+        })
+        .onChange((event) => {
+            offset.value = event.translationX;
+        })
+        .onFinalize(() => {
+            offset.value = withSpring(0);
+            pressed.value = false;
+        });
+
+    const trackerAnimatedStyles = useAnimatedStyle(() => ({
+        transform: [
+            { translateX: offset.value },
+            { scale: withTiming(pressed.value ? 1: 1) }
+        ],
+        zIndex: pressed.value ? 1: 0,
+    }));
+
     function increment() {
         setValue(value + 1);
     }
@@ -44,47 +70,51 @@ export default function Tracker( {hero, id}) {
 
     function handleIncrement() {
         increment();
-        incOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 1000, easing: Easing.inOut(Easing.quad)}));
+        incOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 1000, easing: Easing.inOut(Easing.quad) }));
     }
     function handleDecrement() {
         decrement();
-        decOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 1000, easing: Easing.inOut(Easing.quad)}));
+        decOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 1000, easing: Easing.inOut(Easing.quad) }));
 
     }
 
     return (
-        <View style={styles.trackerContainer}>
-            <ImageBackground source={hero.image} style={styles.heroImage}>
-                <LinearGradient
-                    colors={['transparent', 'transparent', hero.color]}
-                    style={[styles.colorGradient]}
-                />
-                <Pressable style={styles.incDecButton} onPress={handleIncrement}>
-                    {/* TODO: Implement options functionality */}
-                    <Animated.View style={incAnimatedStyles}>
-                        <LinearGradient
-                            colors={['rgba(0,255,0,1)','transparent']}
-                            style={[styles.colorGradient]}
-                        />
-                    </Animated.View>
-                    <Pressable style={styles.gearContainer} onPress={() => removeTracker(id)}>
-                        <Image source={gearIcon} style={styles.gearIcon} />
+        <GestureDetector gesture={pan}>
+            <Animated.View style={[styles.trackerContainer, trackerAnimatedStyles]}>
+                <ImageBackground source={hero.image} style={styles.heroImage}>
+                    <LinearGradient
+                        colors={custom ? [hero.color, hero.color]:['transparent', 'transparent', hero.color]}
+                        style={[styles.colorGradient]}
+                    />
+                    <Pressable style={styles.incDecButton} onPress={handleIncrement}>
+                        <Animated.View style={incAnimatedStyles}>
+                            <LinearGradient
+                                colors={['rgba(0,255,0,1)', 'transparent']}
+                                style={[styles.colorGradient]}
+                            />
+                        </Animated.View>
+                        {custom ? <Text style={styles.trackerName}>{hero.name}</Text> : null }
+
+                        <Pressable style={styles.gearContainer} onPress={() => removeTracker(id)}>
+                            <Image source={gearIcon} style={styles.gearIcon} />
+                        </Pressable>
                     </Pressable>
-                </Pressable>
-                <Pressable style={styles.incDecButton} onPress={handleDecrement}>
-                    <Animated.View style={decAnimatedStyles}>
-                        <LinearGradient
-                            colors={['transparent','rgba(255,0,0,1)']}
-                            style={[styles.colorGradient]}
-                        />
-                    </Animated.View>
-                    <View style={styles.iconContainer}>
-                        <Image source={hero.icon} style={styles.icon} />
-                        <Text style={styles.iconValue}>{value.toString()}</Text>
-                    </View>
-                </Pressable>
-            </ImageBackground>
-        </View>
+                    <Pressable style={styles.incDecButton} onPress={handleDecrement}>
+                        <Animated.View style={decAnimatedStyles}>
+                            <LinearGradient
+                                colors={['transparent', 'rgba(255,0,0,1)']}
+                                style={[styles.colorGradient]}
+                            />
+                        </Animated.View>
+                        <View style={styles.iconContainer}>
+                            <Image source={hero.icon} style={styles.icon} />
+                            <Text style={styles.iconValue}>{value.toString()}</Text>
+                        </View>
+                    </Pressable>
+                </ImageBackground>
+            </Animated.View >
+        </GestureDetector>
+
     );
 }
 
@@ -110,6 +140,20 @@ const styles = StyleSheet.create({
         color: 'white',
         flexDirection: 'column',
     },
+    trackerName: {
+        flex: 1,
+        width: '100%',
+        color: 'white',
+        fontSize: '3vmin',
+        fontFamily: 'Cinzel-Black',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        userSelect: 'none',
+
+        paddingHorizontal: '4vmin',
+        textAlign: 'center',
+    },
     iconContainer: {
         position: 'relative',
         justifyContent: 'center',
@@ -127,14 +171,16 @@ const styles = StyleSheet.create({
         opacity: 0.5
     },
     iconValue: {
+        flex: 1,
         color: 'white',
-        fontSize: '10vh',
+        fontSize: '10vmin',
         fontFamily: 'Cinzel-Black',
         alignSelf: 'center',
         justifyContent: 'center',
         position: 'absolute',
         userSelect: 'none',
         zIndex: 1,
+        flexShrink: 1,
     },
     incDecButton: {
         width: '100%',
@@ -143,6 +189,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexGrow: 1,
         flexBasis: 0,
+        overflow: 'hidden',
     },
     gearContainer: {
         position: 'relative',

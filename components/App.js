@@ -6,8 +6,11 @@ import TrackerContainer from '../components/TrackerContainer/TrackerContainer.js
 import AddTrackerButton from '../components/AddTrackerButton.js';
 import Tracker from '../components/Tracker/Tracker.js';
 import { useFonts } from 'expo-font';
-import HeroPicker from '../components/HeroPicker/HeroPicker.js';
+import HeroCreator from './HeroPicker/HeroCreator.js';
 import { TrackerListContext } from '../context/TrackersContext.js';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import TrackerTypeSelector from './HeroPicker/TrackerTypeSelector.js';
+import CustomTrackerCreator from './HeroPicker/CustomTrackerCreator.js';
 
 const backgroundImage = require('../assets/images/background-image.png');
 
@@ -20,29 +23,51 @@ export default function App() {
 
     const [trackers] = useContext(TrackerListContext);
 
-    const [modalVisible, setModalVisible] = useState(false);
+    const [heroModalVisible, setHeroModalVisible] = useState(false);
+    const [customTrackerCreatorVisible, setCustomTrackerCreatorVisible] = useState(false);
+    const [trackerSelectorVisibility, setTrackerSelectorVisibility] = useState(false);
 
-
-    function handleModalVisibilty() {
-        console.log(trackers)
-        setModalVisible(!modalVisible);
+    function handleTrackerModalVisibilty() {
+        setTrackerSelectorVisibility(!trackerSelectorVisibility);
+    }
+    function handleHeroModalVisibilty() {
+      
+        setHeroModalVisible(!heroModalVisible);
+        setTrackerSelectorVisibility(false);
     }
 
+    function handleCustomTrackerVisibilty() {
+        setCustomTrackerCreatorVisible(!customTrackerCreatorVisible);
+        setTrackerSelectorVisibility(false);
+    }
     return (
-        <View style={styles.container}>
-            <ImageBackground source={backgroundImage} style={styles.backgroundImage} resizeMode='cover'>
+        <GestureHandlerRootView style={styles.container}>
+            <ImageBackground source={backgroundImage} style={styles.backgroundImage} resizeMode='cover' visibility="false">
                 <View style={styles.mainContainer}>
-                    <TrackerContainer>
-                        {trackers.map(tracker => (
-                            <Tracker key={tracker.key} id={tracker.id} hero={tracker.hero} />
-                        ))}
-                    </TrackerContainer>
-                    <HeroPicker modalVisible={modalVisible} setModalVisible={handleModalVisibilty} />
-                    <AddTrackerButton onPress={handleModalVisibilty} />
+                    <View style={styles.trackerContainer}>
+                        <TrackerContainer>
+                            {trackers.filter((tracker, idx) => idx <= 4).map(tracker => (
+                                <Tracker key={tracker.key} id={tracker.id} hero={tracker.hero} custom={tracker.custom} />
+                            ))}
+                        </TrackerContainer>
+                        {
+                            trackers.length > 5 ? (
+                                <TrackerContainer>
+                                    {trackers.filter((tracker, idx) => idx > 4).map(tracker => (
+                                        <Tracker key={tracker.key} id={tracker.id} hero={tracker.hero} custom={tracker.custom} />
+                                    ))}
+                                </TrackerContainer>
+                            ) : null
+                        }
+                    </View>
+                    <TrackerTypeSelector modalVisible={trackerSelectorVisibility} setModalVisible={handleTrackerModalVisibilty} setHeroModalVisible={handleHeroModalVisibilty} setCustomModalVisible={setCustomTrackerCreatorVisible} />
+                    <HeroCreator modalVisible={heroModalVisible} setModalVisible={handleHeroModalVisibilty} />
+                    <CustomTrackerCreator modalVisible={customTrackerCreatorVisible} setModalVisible={handleCustomTrackerVisibilty} />
+                    {trackers.length < 10 && <AddTrackerButton onPress={handleTrackerModalVisibilty} />}
                 </View >
             </ImageBackground >
             <StatusBar style="auto" />
-        </View >
+        </GestureHandlerRootView >
     );
 }
 
@@ -69,4 +94,11 @@ const styles = StyleSheet.create({
         width: '100%',
         flexBasis: 10,
     },
+    trackerContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        height: '100%',
+        width: '100%',
+        flexGrow: 10,
+    }
 });
