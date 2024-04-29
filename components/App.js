@@ -11,7 +11,8 @@ import { TrackerListContext } from '../context/TrackersContext.js';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import TrackerTypeSelector from './HeroPicker/TrackerTypeSelector.js';
 import CustomTrackerCreator from './HeroPicker/CustomTrackerCreator.js';
-
+import colors from "../constants/colors.js"
+import icons from "../constants/icons.js"
 const backgroundImage = require('../assets/images/background-image.png');
 
 export default function App() {
@@ -24,7 +25,10 @@ export default function App() {
     const [trackers] = useContext(TrackerListContext);
 
     const [heroModalVisible, setHeroModalVisible] = useState(false);
+    
     const [customTrackerCreatorVisible, setCustomTrackerCreatorVisible] = useState(false);
+    const [currentCustomHero, setCurrentCustomHero] = useState({name: 'Custom Tracker', health: 1, color: colors.red, icon: icons.attack})
+
     const [trackerSelectorVisibility, setTrackerSelectorVisibility] = useState(false);
 
     function handleTrackerModalVisibilty() {
@@ -38,7 +42,7 @@ export default function App() {
 
     function handleCustomTrackerVisibilty() {
         setCustomTrackerCreatorVisible(!customTrackerCreatorVisible);
-        setTrackerSelectorVisibility(false);
+        if(trackerSelectorVisibility) setTrackerSelectorVisibility(false);
     }
     return (
         <GestureHandlerRootView style={styles.container}>
@@ -47,7 +51,7 @@ export default function App() {
                     <View style={styles.trackerContainer}>
                         <TrackerContainer>
                             {trackers.filter((tracker, idx) => idx <= 4).map(tracker => (
-                                <Tracker key={tracker.key} id={tracker.id} hero={tracker.hero} custom={tracker.custom} />
+                                <Tracker key={tracker.key} id={tracker.id} hero={tracker.hero} custom={tracker.custom} customHeroModal={handleCustomTrackerVisibilty}/>
                             ))}
                         </TrackerContainer>
                         {
@@ -62,7 +66,7 @@ export default function App() {
                     </View>
                     <TrackerTypeSelector modalVisible={trackerSelectorVisibility} setModalVisible={handleTrackerModalVisibilty} setHeroModalVisible={handleHeroModalVisibilty} setCustomModalVisible={setCustomTrackerCreatorVisible} />
                     <HeroCreator modalVisible={heroModalVisible} setModalVisible={handleHeroModalVisibilty} />
-                    <CustomTrackerCreator modalVisible={customTrackerCreatorVisible} setModalVisible={handleCustomTrackerVisibilty} />
+                    <CustomTrackerCreator modalVisible={customTrackerCreatorVisible} setModalVisible={handleCustomTrackerVisibilty} hero={currentCustomHero}/>
                     {trackers.length < 10 && <AddTrackerButton onPress={handleTrackerModalVisibilty} />}
                 </View >
             </ImageBackground >

@@ -16,13 +16,13 @@ const selectedIcon = healthIcon;
 const background = backgroundImage;
 
 
-export default function Tracker({ hero, id, custom }) {
+export default function Tracker({ hero, id, custom, customHeroModal }) {
     const [trackers, setTrackers, addTracker, removeTracker] = useContext(TrackerListContext);
-
+    const [currentHero, setCurrentHero] = useState(hero);
     const incOpacity = useSharedValue(0);
     const decOpacity = useSharedValue(0);
 
-    const [value, setValue] = useState(hero.health);
+    const [value, setValue] = useState(currentHero.health);
 
     const incAnimatedStyles = useAnimatedStyle(() => ({
         opacity: incOpacity.value,
@@ -55,50 +55,46 @@ export default function Tracker({ hero, id, custom }) {
 
     const trackerAnimatedStyles = useAnimatedStyle(() => ({
         transform: [
-            { scale: withTiming(pressed.value ? 1: 1) }
+            { scale: withTiming(pressed.value ? 1 : 1) }
         ],
-        zIndex: pressed.value ? 1: 0,
+        zIndex: pressed.value ? 1 : 0,
     }));
 
     function increment() {
         setValue(value + 1);
+        incOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 1000, easing: Easing.in(Easing.cubic) }));
     }
     function decrement() {
         setValue(value - 1);
+        decOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 1000, easing: Easing.in(Easing.cubic) }));
     }
 
-    function handleIncrement() {
-        increment();
-        incOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 1000, easing: Easing.inOut(Easing.quad) }));
-    }
-    function handleDecrement() {
-        decrement();
-        decOpacity.value = withSequence(withTiming(1, { duration: 0 }), withTiming(0, { duration: 1000, easing: Easing.inOut(Easing.quad) }));
 
-    }
 
     return (
         <GestureDetector gesture={pan}>
             <Animated.View style={[styles.trackerContainer, trackerAnimatedStyles]}>
-                <ImageBackground source={hero.image} style={styles.heroImage}>
+                <ImageBackground source={currentHero.image} style={styles.heroImage}>
                     <LinearGradient
-                        colors={custom ? [hero.color, hero.color]:['transparent', 'transparent', hero.color]}
+                        colors={custom ? [currentHero.color, currentHero.color] : ['transparent', 'transparent', currentHero.color]}
                         style={[styles.colorGradient]}
                     />
-                    <Pressable style={styles.incDecButton} onPress={handleIncrement}>
+                    <Pressable style={styles.incDecButton} onPress={increment}>
                         <Animated.View style={incAnimatedStyles}>
                             <LinearGradient
                                 colors={['rgba(0,255,0,1)', 'transparent']}
                                 style={[styles.colorGradient]}
                             />
                         </Animated.View>
-                        {custom ? <Text style={styles.trackerName}>{hero.name}</Text> : null }
+                        {custom ? <Text style={styles.trackerName}>{currentHero.name}</Text> : null}
 
-                        <Pressable style={styles.gearContainer} onPress={() => removeTracker(id)}>
+                        <Pressable style={styles.gearContainer} onPress={() => {
+                            customHeroModal();
+                        }}>
                             <Image source={gearIcon} style={styles.gearIcon} />
                         </Pressable>
                     </Pressable>
-                    <Pressable style={styles.incDecButton} onPress={handleDecrement}>
+                    <Pressable style={styles.incDecButton} onPress={decrement}>
                         <Animated.View style={decAnimatedStyles}>
                             <LinearGradient
                                 colors={['transparent', 'rgba(255,0,0,1)']}
@@ -106,7 +102,7 @@ export default function Tracker({ hero, id, custom }) {
                             />
                         </Animated.View>
                         <View style={styles.iconContainer}>
-                            <Image source={hero.icon} style={styles.icon} />
+                            <Image source={currentHero.icon} style={styles.icon} />
                             <Text style={styles.iconValue}>{value.toString()}</Text>
                         </View>
                     </Pressable>

@@ -9,11 +9,11 @@ import { TrackerListContext } from "../../context/TrackersContext";
 import ColorPicker from '../ColorPicker/ColorPicker.js';
 import colors from '../../constants/colors.js';
 
-export default function CustomTrackerCreator({ setModalVisible, modalVisible }) {
-    const [name, onChangeName] = useState('');
-    const [value, setValue] = useState(1);
-    const [icon, setIcon] = useState(icons.attack);
-    const [color, setColor] = useState(colors.red);
+export default function CustomTrackerCreator({ setModalVisible, modalVisible, hero }) {
+    const [name, onChangeName] = useState(hero.name);
+    const [value, setValue] = useState(hero.health);
+    const [icon, setIcon] = useState(hero.icon);
+    const [color, setColor] = useState(hero.color);
     const [trackers, setTrackers, addTracker, removeTracker] = useContext(TrackerListContext);
 
     function onChangeValue(text) {
@@ -31,10 +31,10 @@ export default function CustomTrackerCreator({ setModalVisible, modalVisible }) 
         setColor(color);
     }
     function reset() {
-        onChangeName('');
-        setValue(1);
-        setIcon(icons.attack);
-        setColor(colors.red);
+        onChangeName(hero.name);
+        setValue(hero.health);
+        setIcon(hero.icon);
+        setColor(hero.color);
     }
 
     function createCustomTracker() {
@@ -54,7 +54,7 @@ export default function CustomTrackerCreator({ setModalVisible, modalVisible }) 
 
 
     return (
-        <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <Modal animationType="fade" transparent={true} onOpen={reset} visible={modalVisible}>
             <View style={styles.modalContainer} >
                 <Pressable style={styles.closeButton} onPress={setModalVisible}>
                     <MaterialIcons name="close" color="#fff" size={'5vh'} />
