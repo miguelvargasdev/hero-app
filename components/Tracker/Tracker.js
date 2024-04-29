@@ -55,7 +55,6 @@ export default function Tracker({ hero, id, custom }) {
 
     const trackerAnimatedStyles = useAnimatedStyle(() => ({
         transform: [
-            { translateX: offset.value },
             { scale: withTiming(pressed.value ? 1: 1) }
         ],
         zIndex: pressed.value ? 1: 0,

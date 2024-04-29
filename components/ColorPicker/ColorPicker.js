@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
         maxHeight: '25%',
         alignContent: 'center',
         justifyContent: 'center',
-        borderRadius: '10px',
 
     },
     active: {
