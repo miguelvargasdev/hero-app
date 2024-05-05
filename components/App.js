@@ -1,14 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-
-import { ImageBackground, StyleSheet, View } from 'react-native';
 import { useState, useContext } from 'react';
+import { ImageBackground, StyleSheet, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useFonts } from 'expo-font';
+import { StatusBar } from 'expo-status-bar';
+import { atom } from 'jotai';
+
 import TrackerContainer from '../components/TrackerContainer/TrackerContainer.js';
 import AddTrackerButton from '../components/AddTrackerButton.js';
 import Tracker from '../components/Tracker/Tracker.js';
-import { useFonts } from 'expo-font';
 import HeroCreator from './HeroPicker/HeroCreator.js';
 import { TrackerListContext } from '../context/TrackersContext.js';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import TrackerTypeSelector from './HeroPicker/TrackerTypeSelector.js';
 import CustomTrackerCreator from './HeroPicker/CustomTrackerCreator.js';
 import colors from "../constants/colors.js"
