@@ -1,23 +1,13 @@
 import { Pressable, View, StyleSheet, Text, ImageBackground, Image, Easing } from "react-native";
-import Animated, { useAnimatedStyle, useAnimatedProps, useSharedValue, withSpring, withTiming, withSequence } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming, withSequence } from 'react-native-reanimated';
 import React, { useState, useContext } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { TrackerListContext } from '../../context/TrackersContext';
-import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GlobalContext } from '../../context/GlobalContext';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 
-const backgroundImage = require('../../assets/images/arcanas.png');
-const healthIcon = require('../../assets/images/icon/health.png');
 const gearIcon = require('../../assets/images/icon/gear.png');
 
-const name = "Arcanas Invos"
-const startingValue = 32; // arcanas starting health
-const selectedColor = 'rgba(42,77,255,1)'; // arcanas blue
-const selectedIcon = healthIcon;
-const background = backgroundImage;
-
-
 export default function Tracker({ hero, id, custom, customHeroModal }) {
-    const [trackers, setTrackers, addTracker, removeTracker] = useContext(TrackerListContext);
     const [currentHero, setCurrentHero] = useState(hero);
     const incOpacity = useSharedValue(0);
     const decOpacity = useSharedValue(0);
@@ -37,7 +27,7 @@ export default function Tracker({ hero, id, custom, customHeroModal }) {
         height: '100%',
     }));
 
-    // Gestures
+    ////////////// GESTURES START \\\\\\\\\\\\\\\\
     const offset = useSharedValue(0);
     const pressed = useSharedValue(false);
 
@@ -59,6 +49,8 @@ export default function Tracker({ hero, id, custom, customHeroModal }) {
         ],
         zIndex: pressed.value ? 1 : 0,
     }));
+    ////////////// GESTURES END \\\\\\\\\\\\\\\\
+
 
     function increment() {
         setValue(value + 1);

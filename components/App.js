@@ -58,7 +58,7 @@ export default function App() {
                             trackers.length > 5 ? (
                                 <TrackerContainer>
                                     {trackers.filter((tracker, idx) => idx > 4).map(tracker => (
-                                        <Tracker key={tracker.key} id={tracker.id} hero={tracker.hero} custom={tracker.custom} />
+                                        <Tracker key={tracker.key} id={tracker.id} hero={tracker.hero} custom={tracker.custom} customHeroModal={handleCustomTrackerVisibilty} />
                                     ))}
                                 </TrackerContainer>
                             ) : null

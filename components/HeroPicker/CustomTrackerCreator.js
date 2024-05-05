@@ -49,7 +49,6 @@ export default function CustomTrackerCreator({ setModalVisible, modalVisible, he
         }
         addTracker(newTracker, true);
         reset();
-        console.log("ADDING TRACKER")
     }
 
 
